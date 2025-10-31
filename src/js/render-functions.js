@@ -9,13 +9,25 @@ let gallery_box = new SimpleLightbox('.gallery a', {
     overlayOpacity: 0.9,
     animationSpeed: 250
 });
+const loader = document.querySelector('.loader');
+function showLoader() {
+    loader.classList.add('visible');
+};
+function hideLoader() {
+    loader.classList.remove('visible');
+}
+
+function clearGallery() {
+    const galleryContainer = document.querySelector('.gallery');
+    if (galleryContainer) galleryContainer.innerHTML = '';
+}
 
 function createGallery(images) {
     return images.map(
-        ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
+        ({ previewURL, largeImageURL, tags, likes, views, comments, downloads }) => 
             `<li class="gallery__item">
                 <a class="gallery__link" href="${largeImageURL}">
-                    <img class="gallery__image" src="${webformatURL}" alt="${tags}" />
+                    <img class="gallery__image" src="${previewURL}" alt="${tags}" />
                     <div class="info">
                         <p><b>Likes:</b> ${likes}</p>
                         <p><b>Views:</b> ${views}</p>
@@ -34,4 +46,4 @@ function renderGallery(images) {
     gallery_box.refresh();
 }
 
-export { createGallery, renderGallery };
+export { createGallery, renderGallery, showLoader, hideLoader, clearGallery };

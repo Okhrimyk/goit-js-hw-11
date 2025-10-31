@@ -4,16 +4,11 @@ import "izitoast/dist/css/iziToast.min.css";
 
 
 import { getImagesByQuery } from './js/pixabay-api.js';
-import { renderGallery } from './js/render-functions.js';
+import { renderGallery, showLoader, hideLoader, clearGallery } from './js/render-functions.js';
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
-const loader = document.querySelector('.loader');
-function showLoader() {
-    loader.classList.add('visible');
-};
-function hideLoader() {
-    loader.classList.remove('visible');
-}
+
+
 
 form.addEventListener('submit', onFormSubmit);
 function onFormSubmit(event) {
@@ -28,7 +23,8 @@ function onFormSubmit(event) {
         return;
     }
     
-    if (gallery) gallery.innerHTML = '';
+    // Очищаємо галерею через інкапсульовану функцію
+    clearGallery();
     showLoader(); 
     
     getImagesByQuery(query)
